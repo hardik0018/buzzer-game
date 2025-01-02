@@ -1,9 +1,11 @@
-import  dbconnect  from "./lib/db.js";
+import dbconnect from "./lib/db.js";
 import express from "express";
 import cors from "cors";
 import roomCreateRoutes from "./routes/roomCreateRoutes.js";
 import { app, server } from "./lib/socket.js";
+import dotenv from "dotenv";
 app.use(express.json());
+dotenv.config();
 app.use(
   cors({
     origin: "http://localhost:5173",
