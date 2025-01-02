@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { io } from "socket.io-client";
 import axiosInstance from "../lib/axiosInstance";
 import toast from "react-hot-toast";
-import Buzz1 from "../assets/Buzz1.mp3";
+import Buzz1 from "../assets/buzz1.mp3";
 
 const useQuizStore = create((set, get) => ({
   userId: null,
