@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 async function dbconnect() {
   try {
-    await mongoose.connect("mongodb://localhost:27017/chat", {
+    await mongoose.connect(process.env.MONGODB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
