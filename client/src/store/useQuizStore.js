@@ -46,7 +46,7 @@ const useQuizStore = create((set, get) => ({
     const { socket } = get();
 
     if (!socket) {
-      let socket = io("http://localhost:3000", {
+      let socket = io(import.meta.env.VITE_SERVER_HOST, {
         transports: ["websocket"],
       });
 
