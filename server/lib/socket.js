@@ -8,10 +8,9 @@ const server = createServer(app);
 const io = new Server(server);
 
 io.on("connection", (socket) => {
-  console.log("User connected", socket.id);
-
+  
   socket.on("message", (msg) => {
-    console.log(msg);
+
     io.emit("message", msg);
   });
 
@@ -34,12 +33,11 @@ io.on("connection", (socket) => {
         io.to(element.owner).emit("userLeft", { userId: id });
       });
     }
-    console.log("User disconnected", socket.id);
   });
 
   socket.on("startGame", async (roomId) => {
     let room = await Room.findById(roomId);
-    console.log(room);
+   
     room.start = true;
     room.save();
     room.users.forEach((element) => {

@@ -33,7 +33,7 @@ const useQuizStore = create((set, get) => ({
       name,
       userId: get().userId,
     });
-    console.log(res);
+ 
     if (res.data.success) {
       toast.success("Join a Room");
       set({ roomId: res.data.data._id });
@@ -51,7 +51,7 @@ const useQuizStore = create((set, get) => ({
       });
 
       socket.on("connect", () => {
-        console.log("Connected to server");
+    
         set({ userId: socket.id });
       });
 
@@ -62,7 +62,7 @@ const useQuizStore = create((set, get) => ({
       });
 
       socket.on("userLeft", (msg) => {
-        console.log(msg, "userLeft");
+      
         const { roomUser } = get();
 
         delete roomUser[msg.userId];
@@ -71,7 +71,7 @@ const useQuizStore = create((set, get) => ({
       });
 
       socket.on("roomDeleted", (msg) => {
-        console.log(msg, "roomDeleted");
+       
         set({ roomUser: [], roomId: null });
       });
 
@@ -137,7 +137,7 @@ const useQuizStore = create((set, get) => ({
     if (roomUser) {
       socket.emit(msg, get().roomId);
     } else {
-      console.log("No users in room");
+    toast.error("Not User Join")
     }
   },
   hanldeBuzz: (id) => {
