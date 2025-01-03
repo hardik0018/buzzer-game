@@ -56,14 +56,14 @@ const useQuizStore = create((set, get) => ({
 
       socket.on("newUser", (msg) => {
         const { roomUser } = get();
-        toast.success(`${msg.name} is Join the Game`)
+        toast.success(`${msg.name} is Join the Game`);
         roomUser[msg.userId] = { name: msg.name, isActive: false, score: 0 };
         set({ roomUser });
       });
 
       socket.on("userLeft", (msg) => {
         const { roomUser } = get();
-        toast.error(`${msg.name} is Left the Game`)
+        toast.error(`${msg.name} is Left the Game`);
         delete roomUser[msg.userId];
 
         set({ roomUser });
@@ -93,9 +93,9 @@ const useQuizStore = create((set, get) => ({
       });
 
       socket.on("buzz", (msg) => {
-        toast.success(`Press buzz is:-${msg.id}`);
         if (get().winner == null) {
           set({ winner: msg.id });
+          toast.success(`Press buzz is:-${msg.id}`);
         }
         get().stopGame();
       });
