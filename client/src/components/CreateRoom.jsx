@@ -3,7 +3,7 @@ import useQuizStore from "../store/useQuizStore";
 
 const CreateRoom = () => {
   const [roomName, setRoomName] = useState("");
-  const {  userId, onCreateRoom } = useQuizStore();
+  const { userId, onCreateRoom } = useQuizStore();
 
   return (
     <div className="max-w-sm mx-auto">

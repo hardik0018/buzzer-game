@@ -33,7 +33,7 @@ const useQuizStore = create((set, get) => ({
       name,
       userId: get().userId,
     });
- 
+
     if (res.data.success) {
       toast.success("Join a Room");
       set({ roomId: res.data.data._id });
@@ -51,31 +51,32 @@ const useQuizStore = create((set, get) => ({
       });
 
       socket.on("connect", () => {
-    
         set({ userId: socket.id });
       });
 
       socket.on("newUser", (msg) => {
         const { roomUser } = get();
+        toast.success(`${msg.name} is Join the Game`)
         roomUser[msg.userId] = { name: msg.name, isActive: false, score: 0 };
         set({ roomUser });
       });
 
       socket.on("userLeft", (msg) => {
-      
         const { roomUser } = get();
-
+        toast.error(`${msg.name} is Left the Game`)
         delete roomUser[msg.userId];
 
         set({ roomUser });
       });
 
-      socket.on("roomDeleted", (msg) => {
-       
+      socket.on("roomDeleted", () => {
+        toast.error("Room are Deleted");
+
         set({ roomUser: [], roomId: null });
       });
 
       socket.on("startGame", () => {
+        toast.success("Start The Game");
         set({ isRunning: true });
       });
 
@@ -92,8 +93,10 @@ const useQuizStore = create((set, get) => ({
       });
 
       socket.on("buzz", (msg) => {
-        toast.success(msg.id);
-        set({ winner: msg.id });
+        toast.success(`Press buzz is:-${msg.id}`);
+        if (get().winner == null) {
+          set({ winner: msg.id });
+        }
         get().stopGame();
       });
 
@@ -137,7 +140,7 @@ const useQuizStore = create((set, get) => ({
     if (roomUser) {
       socket.emit(msg, get().roomId);
     } else {
-    toast.error("Not User Join")
+      toast.error("Not User Join");
     }
   },
   hanldeBuzz: (id) => {
